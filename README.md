@@ -33,7 +33,7 @@ export default tseslint.config({
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-````js
+```js
 // eslint.config.js
 import reactX from "eslint-plugin-react-x";
 import reactDom from "eslint-plugin-react-dom";
@@ -49,6 +49,11 @@ export default tseslint.config({
     // Enable its recommended typescript rules
     ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules
+  }
+});
+```
+
+"# base-react-v2"
 
 # React TypeScript Base Project
 
@@ -56,6 +61,7 @@ A modern React TypeScript project with best practices and common integrations.
 
 ## Project Structure
 
+```
 src/
 ├── components/           # Reusable UI components
 │   ├── layout/          # Layout components
@@ -84,6 +90,7 @@ src/
 ├── utils/              # Utility functions
 ├── App.tsx             # Root component
 └── main.tsx            # Entry point
+```
 
 ## Features
 
@@ -95,6 +102,8 @@ src/
 - 📱 Responsive design
 - 🔒 Authentication with JWT
 - 🎯 TypeScript for type safety
+- 🐶 Husky for git hooks
+- 📝 Commitlint for commit message validation
 
 ## Prerequisites
 
@@ -104,10 +113,11 @@ src/
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd react-base-ts
-````
+```
 
 2. Install dependencies:
 
@@ -161,6 +171,43 @@ pnpm dev
 - `lucide-react` - Icons
 - `tailwindcss` - Styling
 - `shadcn-ui` - UI components
+- `husky` - Git hooks
+- `@commitlint/cli` - Commit message linting
+
+## Commit Conventions
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/) specification. Commit messages should be formatted as follows:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Types
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation only changes
+- `style`: Changes that do not affect the meaning of the code
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `perf`: A code change that improves performance
+- `test`: Adding missing tests
+- `build`: Changes to the build system
+- `ci`: Changes to CI configuration files and scripts
+- `chore`: Other changes that don't modify source or test files
+- `revert`: Reverts a previous commit
+
+### Examples
+
+```
+feat(auth): add login functionality
+fix(api): handle network errors
+docs(readme): update installation instructions
+style(components): format code according to prettier
+```
 
 ## Best Practices
 
@@ -174,22 +221,20 @@ pnpm dev
 - Implement proper loading states
 - Handle edge cases
 - Use proper form validation
+- Follow commit conventions
 
 ## Contributing
 
 1. Fork the repository
 2. Create your feature branch
-3. Commit your changes
+3. Commit your changes following the commit conventions
 4. Push to the branch
 5. Create a Pull Request
 
 ## License
 
 This project is licensed under the MIT License.
-}
-});
 
 ```
 
-"# base-react-v2"
 ```
