@@ -49,6 +49,142 @@ export default tseslint.config({
     // Enable its recommended typescript rules
     ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules
+
+# React TypeScript Base Project
+
+A modern React TypeScript project with best practices and common integrations.
+
+## Project Structure
+
+```
+src/
+├── components/           # Reusable UI components
+│   ├── layout/          # Layout components
+│   ├── product/         # Product-related components
+│   └── ui/              # Shadcn UI components
+├── config/              # Configuration files
+│   ├── minio.ts         # MinIO configuration
+│   ├── socket.ts        # Socket.IO configuration
+│   └── reactQuery.ts    # React Query configuration
+├── hooks/               # Custom React hooks
+│   ├── useAuth.ts       # Authentication hook
+│   ├── useMinio.ts      # MinIO hook
+│   ├── useProducts.ts   # Products hook
+│   └── useSocket.ts     # Socket.IO hook
+├── pages/               # Page components
+│   ├── auth/           # Authentication pages
+│   └── products/       # Product pages
+├── services/           # API services
+│   ├── auth.ts         # Authentication service
+│   ├── base.ts         # Base API service
+│   └── product.ts      # Product service
+├── store/              # State management
+│   ├── types.ts        # Store types
+│   └── useStore.ts     # Zustand store
+├── types/              # Global TypeScript types
+├── utils/              # Utility functions
+├── App.tsx             # Root component
+└── main.tsx            # Entry point
+```
+
+## Features
+
+- ⚡️ Vite + React + TypeScript
+- 🎨 Shadcn UI + Tailwind CSS
+- 🔄 React Query for data fetching
+- 🔌 Socket.IO for real-time features
+- 📦 MinIO for file storage
+- 📱 Responsive design
+- 🔒 Authentication with JWT
+- 🎯 TypeScript for type safety
+
+## Prerequisites
+
+- Node.js 18+
+- pnpm
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd react-base-ts
+```
+
+2. Install dependencies:
+```bash
+pnpm install
+```
+
+3. Create `.env` file:
+```env
+VITE_API_URL=https://fakestoreapi.com
+
+# MinIO Configuration
+VITE_MINIO_ENDPOINT=localhost
+VITE_MINIO_PORT=9000
+VITE_MINIO_USE_SSL=false
+VITE_MINIO_ACCESS_KEY=minioadmin
+VITE_MINIO_SECRET_KEY=minioadmin
+VITE_MINIO_BUCKET_NAME=products
+VITE_MINIO_PUBLIC_URL=http://localhost:9000
+
+# Socket.IO Configuration
+VITE_SOCKET_URL=http://localhost:3000
+```
+
+4. Start development server:
+```bash
+pnpm dev
+```
+
+## Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build
+- `pnpm lint` - Run ESLint
+- `pnpm format` - Format code with Prettier
+
+## Key Dependencies
+
+- `@tanstack/react-query` - Data fetching and caching
+- `axios` - HTTP client
+- `minio` - Object storage
+- `socket.io-client` - Real-time communication
+- `zustand` - State management
+- `zod` - Schema validation
+- `@hookform/resolvers` - Form validation
+- `react-hook-form` - Form handling
+- `react-router-dom` - Routing
+- `lucide-react` - Icons
+- `tailwindcss` - Styling
+- `shadcn-ui` - UI components
+
+## Best Practices
+
+- Use TypeScript for type safety
+- Follow functional programming patterns
+- Implement proper error handling
+- Use React Query for data fetching
+- Implement responsive design
+- Follow component composition patterns
+- Use proper naming conventions
+- Implement proper loading states
+- Handle edge cases
+- Use proper form validation
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
   }
 });
 ```
