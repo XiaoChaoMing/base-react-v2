@@ -33,7 +33,7 @@ export default tseslint.config({
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
+````js
 // eslint.config.js
 import reactX from "eslint-plugin-react-x";
 import reactDom from "eslint-plugin-react-dom";
@@ -56,7 +56,6 @@ A modern React TypeScript project with best practices and common integrations.
 
 ## Project Structure
 
-```
 src/
 ├── components/           # Reusable UI components
 │   ├── layout/          # Layout components
@@ -85,7 +84,6 @@ src/
 ├── utils/              # Utility functions
 ├── App.tsx             # Root component
 └── main.tsx            # Entry point
-```
 
 ## Features
 
@@ -109,14 +107,16 @@ src/
 ```bash
 git clone <repository-url>
 cd react-base-ts
-```
+````
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Create `.env` file:
+
 ```env
 VITE_API_URL=https://fakestoreapi.com
 
@@ -134,6 +134,7 @@ VITE_SOCKET_URL=http://localhost:3000
 ```
 
 4. Start development server:
+
 ```bash
 pnpm dev
 ```
@@ -185,8 +186,10 @@ pnpm dev
 ## License
 
 This project is licensed under the MIT License.
-  }
+}
 });
+
 ```
 
 "# base-react-v2"
+```
