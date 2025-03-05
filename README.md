@@ -52,4 +52,5 @@ export default tseslint.config({
   }
 });
 ```
-"# base-react-v2" 
+
+"# base-react-v2"
