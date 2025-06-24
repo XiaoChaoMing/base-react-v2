@@ -1,7 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Layout } from "@/components/layouts/layout";
-import ProductsPage from "@/pages/products";
-import ProductDetailPage from "@/pages/products/[id]";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { ChatLayout } from "@/components/chat-layout";
+import Login from "@/pages/auth/login";
+import Register from "@/pages/auth/register";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { Layout } from "@/layouts/layout";
+
 
 export const router = createBrowserRouter([
   {
@@ -9,13 +12,33 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "products",
-        element: <ProductsPage />
+        path: "/",
+        element: (
+          <ProtectedRoute>
+            <ChatLayout />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "products/:id",
-        element: <ProductDetailPage />
-      }
-    ]
-  }
+        path: "/chat/:chatId",
+        element: (
+          <ProtectedRoute>
+            <ChatLayout />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" replace />,
+      },
+    ],
+  },
 ]);

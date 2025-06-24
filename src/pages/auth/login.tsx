@@ -14,9 +14,10 @@ import { Input } from "@/components/ui/input";
 import { useStore } from "@/store";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  username: z.string().min(3, "Username must be at least 3 characters"),
   password: z.string().min(6, "Password must be at least 6 characters")
 });
 
@@ -29,7 +30,7 @@ const LoginPage = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: ""
     }
   });
@@ -55,14 +56,13 @@ const LoginPage = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="email"
+              name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="name@example.com"
-                      type="email"
+                      placeholder="Enter your username"
                       {...field}
                       disabled={isLoggingIn}
                     />
@@ -101,6 +101,12 @@ const LoginPage = () => {
             </Button>
           </form>
         </Form>
+        <div className="text-center text-sm">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-primary underline">
+            Create an account
+          </Link>
+        </div>
       </div>
     </div>
   );
