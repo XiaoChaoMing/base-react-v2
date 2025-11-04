@@ -10,8 +10,6 @@ export * from './skeleton';
 export * from './textarea';
 
 // Chat UI components
-export * from './chat-bubble';
 export * from './chat-input';
 export * from './chat-input-debounced';
 export * from './chat-message-list';
-export * from './chat-messages';
