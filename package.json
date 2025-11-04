@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^20.0.0",
     "@eslint/js": "^9.21.0",
     "@types/axios": "^0.14.4",
     "@types/d3-array": "^3.2.1",

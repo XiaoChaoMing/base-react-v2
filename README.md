@@ -1,240 +1,205 @@
-# React + TypeScript + Vite
+# TechStore - React E-commerce Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Một ứng dụng web bán hàng demo được xây dựng với React, TypeScript và Vite, sử dụng kiến trúc feature-based.
 
-Currently, two official plugins are available:
+## 🚀 Tính năng
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🛍️ Trang chủ với sản phẩm nổi bật
+- 📱 Danh sách sản phẩm với filter theo danh mục
+- 🔍 Chi tiết sản phẩm với hình ảnh và thông tin đầy đủ
+- 🛒 Giỏ hàng với quản lý số lượng
+- 💳 Trang thanh toán với form thông tin giao hàng
+- 🔐 Đăng nhập/Đăng ký (demo)
+- 📱 Responsive design
+- ⚡ Fast loading với lazy loading
+- 🎨 UI hiện đại với Tailwind CSS
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname
-    }
-  }
-});
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules
-  }
-});
-```
-
-"# base-react-v2"
-
-# React TypeScript Base Project
-
-A modern React TypeScript project with best practices and common integrations.
-
-## Project Structure
+## 🏗️ Cấu trúc dự án
 
 ```
 src/
-├── components/           # Reusable UI components
-│   ├── layout/          # Layout components
-│   ├── product/         # Product-related components
-│   └── ui/              # Shadcn UI components
-├── config/              # Configuration files
-│   ├── minio.ts         # MinIO configuration
-│   ├── socket.ts        # Socket.IO configuration
-│   └── reactQuery.ts    # React Query configuration
-├── hooks/               # Custom React hooks
-│   ├── useAuth.ts       # Authentication hook
-│   ├── useMinio.ts      # MinIO hook
-│   ├── useProducts.ts   # Products hook
-│   └── useSocket.ts     # Socket.IO hook
-├── pages/               # Page components
-│   ├── auth/           # Authentication pages
-│   └── products/       # Product pages
-├── services/           # API services
-│   ├── auth.ts         # Authentication service
-│   ├── base.ts         # Base API service
-│   └── product.ts      # Product service
-├── store/              # State management
-│   ├── types.ts        # Store types
-│   └── useStore.ts     # Zustand store
-├── types/              # Global TypeScript types
-├── utils/              # Utility functions
-├── App.tsx             # Root component
-└── main.tsx            # Entry point
+├── app/                    # App layer - Core application setup
+│   ├── layouts/           # Application layouts (RootLayout, AuthLayout)
+│   ├── providers/         # App providers (Auth, Query, etc.)
+│   └── router/            # Router configuration with lazy loading
+├── features/              # Feature modules
+│   └── shop/             # Shop feature
+│       └── pages/        # Shop pages (Home, Products, Cart, etc.)
+├── shared/               # Shared utilities and components
+│   ├── components/       # Reusable UI components
+│   ├── constants/        # App constants
+│   ├── hooks/           # Custom hooks
+│   ├── services/        # API services
+│   ├── types/           # TypeScript type definitions
+│   └── utils/           # Utility functions
+├── components/          # Base UI components
+│   ├── base/           # Base components (Loading, etc.)
+│   └── ui/             # UI components
+├── pages/              # Auth pages
+│   └── auth/          # Login, Register pages
+├── hooks/             # Application-specific hooks
+└── lib/               # Library utilities
 ```
 
-## Features
+## 🛠️ Công nghệ sử dụng
 
-- ⚡️ Vite + React + TypeScript
-- 🎨 Shadcn UI + Tailwind CSS
-- 🔄 React Query for data fetching
-- 🔌 Socket.IO for real-time features
-- 📦 MinIO for file storage
-- 📱 Responsive design
-- 🔒 Authentication with JWT
-- 🎯 TypeScript for type safety
-- 🐶 Husky for git hooks
-- 📝 Commitlint for commit message validation
+- **Frontend Framework**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **State Management**: React Context + useState
+- **Data Fetching**: React Query (TanStack Query)
+- **Routing**: React Router DOM v6
+- **Form Handling**: Native HTML forms
+- **Icons**: Lucide React
+- **Code Quality**: ESLint + Prettier
 
-## Prerequisites
+## 📋 Yêu cầu hệ thống
 
 - Node.js 18+
-- pnpm
+- npm hoặc yarn hoặc pnpm
 
-## Getting Started
+## 🚀 Cài đặt và chạy
 
-1. Clone the repository:
-
+1. **Clone repository:**
 ```bash
 git clone <repository-url>
-cd react-base-ts
+cd techstore-demo
 ```
 
-2. Install dependencies:
-
+2. **Cài đặt dependencies:**
 ```bash
+npm install
+# hoặc
+yarn install
+# hoặc
 pnpm install
 ```
 
-3. Create `.env` file:
-
+3. **Tạo file .env (tùy chọn):**
 ```env
 VITE_API_URL=https://fakestoreapi.com
-
-# MinIO Configuration
-VITE_MINIO_ENDPOINT=localhost
-VITE_MINIO_PORT=9000
-VITE_MINIO_USE_SSL=false
-VITE_MINIO_ACCESS_KEY=minioadmin
-VITE_MINIO_SECRET_KEY=minioadmin
-VITE_MINIO_BUCKET_NAME=products
-VITE_MINIO_PUBLIC_URL=http://localhost:9000
-
-# Socket.IO Configuration
-VITE_SOCKET_URL=http://localhost:3000
 ```
 
-4. Start development server:
-
+4. **Chạy development server:**
 ```bash
+npm run dev
+# hoặc
+yarn dev
+# hoặc
 pnpm dev
 ```
+pnpm add -D @commitlint/config-conventional
 
-## Available Scripts
+5. **Mở trình duyệt:** http://localhost:5173
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm preview` - Preview production build
-- `pnpm lint` - Run ESLint
-- `pnpm format` - Format code with Prettier
+## 📝 Scripts có sẵn
 
-## Key Dependencies
+- `npm run dev` - Chạy development server
+- `npm run build` - Build cho production
+- `npm run preview` - Preview production build
+- `npm run lint` - Chạy ESLint
+- `npm run lint:fix` - Tự động fix ESLint errors
 
-- `@tanstack/react-query` - Data fetching and caching
-- `axios` - HTTP client
-- `minio` - Object storage
-- `socket.io-client` - Real-time communication
-- `zustand` - State management
-- `zod` - Schema validation
-- `@hookform/resolvers` - Form validation
-- `react-hook-form` - Form handling
-- `react-router-dom` - Routing
-- `lucide-react` - Icons
-- `tailwindcss` - Styling
-- `shadcn-ui` - UI components
-- `husky` - Git hooks
-- `@commitlint/cli` - Commit message linting
+## 🎯 Demo Features
 
-## Commit Conventions
+### 🏠 Trang chủ
+- Hero section với call-to-action
+- Hiển thị sản phẩm nổi bật
+- Navigation menu
 
-This project follows [Conventional Commits](https://www.conventionalcommits.org/) specification. Commit messages should be formatted as follows:
+### 🛍️ Trang sản phẩm
+- Danh sách tất cả sản phẩm
+- Filter theo danh mục (Điện thoại, Laptop, Tablet, Phụ kiện)
+- Responsive grid layout
 
+### 📱 Chi tiết sản phẩm
+- Hình ảnh sản phẩm với thumbnail
+- Thông tin chi tiết và tính năng
+- Chọn số lượng và thêm vào giỏ hàng
+- Đánh giá và reviews
+
+### 🛒 Giỏ hàng
+- Hiển thị sản phẩm đã chọn
+- Tăng/giảm số lượng
+- Tính tổng tiền tự động
+- Miễn phí ship cho đơn hàng trên 50M
+
+### 💳 Thanh toán
+- Form thông tin giao hàng
+- Chọn phương thức thanh toán
+- Tóm tắt đơn hàng
+- Protected route (cần đăng nhập)
+
+### 🔐 Authentication
+- Đăng nhập demo (admin@test.com / password)
+- Đăng ký tài khoản mới
+- Simple localStorage-based auth
+
+## 🏛️ Kiến trúc
+
+### Feature-Based Architecture
+- Mỗi feature được tổ chức trong thư mục riêng
+- Shared components và utilities được tái sử dụng
+- Clear separation of concerns
+
+### App Layer
+- **Providers**: Quản lý global state và context
+- **Router**: Cấu hình routing với lazy loading
+- **Layouts**: Layout components cho các loại trang khác nhau
+
+### Shared Layer
+- **Components**: UI components có thể tái sử dụng
+- **Services**: API clients và business logic
+- **Types**: TypeScript type definitions
+- **Utils**: Helper functions và utilities
+
+## 🎨 UI/UX
+
+- **Design System**: Consistent color scheme và typography
+- **Responsive**: Mobile-first approach
+- **Loading States**: Skeleton loading và spinners
+- **Error Handling**: User-friendly error messages
+- **Accessibility**: Semantic HTML và keyboard navigation
+
+## 🔧 Customization
+
+### Thêm sản phẩm mới
+1. Cập nhật mock data trong các page components
+2. Hoặc tích hợp với API thực tế
+
+### Thay đổi theme
+1. Cập nhật Tailwind config
+2. Sửa CSS variables trong index.css
+
+### Thêm tính năng mới
+1. Tạo feature module mới trong `src/features/`
+2. Thêm routes trong `src/app/router/routes.tsx`
+3. Cập nhật navigation
+
+## 📱 Responsive Breakpoints
+
+- **Mobile**: < 768px
+- **Tablet**: 768px - 1024px  
+- **Desktop**: > 1024px
+
+## 🚀 Production Build
+
+```bash
+npm run build
+npm run preview
 ```
-<type>[optional scope]: <description>
 
-[optional body]
+Build output sẽ được tạo trong thư mục `dist/`
 
-[optional footer(s)]
-```
+## 🤝 Contributing
 
-### Types
+1. Fork repository
+2. Tạo feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Tạo Pull Request
 
-- `feat`: A new feature
-- `fix`: A bug fix
-- `docs`: Documentation only changes
-- `style`: Changes that do not affect the meaning of the code
-- `refactor`: A code change that neither fixes a bug nor adds a feature
-- `perf`: A code change that improves performance
-- `test`: Adding missing tests
-- `build`: Changes to the build system
-- `ci`: Changes to CI configuration files and scripts
-- `chore`: Other changes that don't modify source or test files
-- `revert`: Reverts a previous commit
+## 📄 License
 
-### Examples
+Dự án này được phân phối dưới MIT License. Xem file `LICENSE` để biết thêm chi tiết.
 
-```
-feat(auth): add login functionality
-fix(api): handle network errors
-docs(readme): update installation instructions
-style(components): format code according to prettier
-```
-
-## Best Practices
-
-- Use TypeScript for type safety
-- Follow functional programming patterns
-- Implement proper error handling
-- Use React Query for data fetching
-- Implement responsive design
-- Follow component composition patterns
-- Use proper naming conventions
-- Implement proper loading states
-- Handle edge cases
-- Use proper form validation
-- Follow commit conventions
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes following the commit conventions
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License.
-
-```
-
-```
