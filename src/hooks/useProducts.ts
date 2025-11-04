@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { productService, type Product } from "@/services/app/product";
+import { productService, type Product } from "@/shared/services/product";
 
 export const useProducts = () => {
   const { data: products, isLoading } = useQuery({

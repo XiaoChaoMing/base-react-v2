@@ -1,164 +1,138 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStore } from "@/store";
-import { Loader2 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const registerSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters"),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
-
-type RegisterFormValues = z.infer<typeof registerSchema>;
-
-const RegisterPage = () => {
-  const { setLoading, setError } = useStore();
-  const { register, isRegistering } = useAuth();
-
-  const form = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
-    }
+export default function Register() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const onSubmit = (data: RegisterFormValues) => {
-    setLoading(true);
-    setError(null);
-    register({
-      username: data.username,
-      email: data.email,
-      password: data.password
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Mật khẩu xác nhận không khớp");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      // Mock registration - in real app, call auth service
+      localStorage.setItem("user", JSON.stringify({ 
+        email: formData.email, 
+        name: formData.name 
+      }));
+      navigate("/");
+    } catch (err) {
+      setError("Đăng ký thất bại. Vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Create an account
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            Enter your information to create an account
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold">Đăng ký</h2>
+          <p className="text-gray-600 mt-2">
+            Tạo tài khoản mới để bắt đầu mua sắm
           </p>
         </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter username"
-                      {...field}
-                      disabled={isRegistering}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {error}
+            </div>
+          )}
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Họ và tên
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <FormField
-              control={form.control}
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="name@example.com"
-                      type="email"
-                      {...field}
-                      disabled={isRegistering}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <FormField
-              control={form.control}
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Mật khẩu
+            </label>
+            <input
+              type="password"
               name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Create a password"
-                      type="password"
-                      {...field}
-                      disabled={isRegistering}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <FormField
-              control={form.control}
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Xác nhận mật khẩu
+            </label>
+            <input
+              type="password"
               name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Confirm your password"
-                      type="password"
-                      {...field}
-                      disabled={isRegistering}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <Button type="submit" className="w-full" disabled={isRegistering}>
-              {isRegistering ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating account...
-                </>
-              ) : (
-                "Create account"
-              )}
-            </Button>
-          </form>
-        </Form>
-        <div className="text-center text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="text-primary underline">
-            Sign in
-          </Link>
-        </div>
+          </div>
+          
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+          >
+            {isLoading ? "Đang đăng ký..." : "Đăng ký"}
+          </button>
+          
+          <div className="text-center text-sm">
+            Đã có tài khoản?{" "}
+            <Link to="/login" className="text-primary hover:underline">
+              Đăng nhập ngay
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );
-};
-
-export default RegisterPage; 
+}

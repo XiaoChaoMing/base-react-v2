@@ -1,115 +1,98 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStore } from "@/store";
-import { Loader2 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const loginSchema = z.object({
-  username: z.string().min(3, "Username must be at least 3 characters"),
-  password: z.string().min(6, "Password must be at least 6 characters")
-});
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-const LoginPage = () => {
-  const { setLoading, setError } = useStore();
-  const { login, isLoggingIn } = useAuth();
-
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      username: "",
-      password: ""
+    try {
+      // Mock login - in real app, call auth service
+      if (email === "admin@test.com" && password === "password") {
+        localStorage.setItem("user", JSON.stringify({ email, name: "Admin User" }));
+        navigate("/");
+      } else {
+        setError("Email hoặc mật khẩu không đúng");
+      }
+    } catch (err) {
+      setError("Đăng nhập thất bại. Vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
     }
-  });
-
-  const onSubmit = (data: LoginFormValues) => {
-    setLoading(true);
-    setError(null);
-    login(data);
   };
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-        <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome back
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            Enter your credentials to sign in
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold">Đăng nhập</h2>
+          <p className="text-gray-600 mt-2">
+            Nhập email và mật khẩu để đăng nhập
           </p>
         </div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your username"
-                      {...field}
-                      disabled={isLoggingIn}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              {error}
+            </div>
+          )}
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="admin@test.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Enter your password"
-                      type="password"
-                      {...field}
-                      disabled={isLoggingIn}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Mật khẩu
+            </label>
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <Button type="submit" className="w-full" disabled={isLoggingIn}>
-              {isLoggingIn ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing in...
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </Button>
-          </form>
-        </Form>
-        <div className="text-center text-sm">
-          Don't have an account?{" "}
-          <Link to="/register" className="text-primary underline">
-            Create an account
-          </Link>
-        </div>
+          </div>
+          
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+          >
+            {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
+          </button>
+          
+          <div className="text-center text-sm">
+            Chưa có tài khoản?{" "}
+            <Link to="/register" className="text-primary hover:underline">
+              Đăng ký ngay
+            </Link>
+          </div>
+          
+          <div className="text-center text-xs text-gray-500 mt-4">
+            <p>Demo: admin@test.com / password</p>
+          </div>
+        </form>
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
